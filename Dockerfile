@@ -43,16 +43,3 @@ RUN python --version && \
 
 # Set working directory
 WORKDIR /workspace
-
-Mojtaba Roshani, [10/8/2025 2:00 AM]
-# Build the Docker image
-docker build -t your-username/dcgm-pytorch-cuda:12.8 .
-
-# Test the image
-docker run --gpus all your-username/dcgm-pytorch-cuda:12.8 nvidia-smi
-
-# Log in to Docker Hub
-docker login
-
-# Push the image to Docker Hub
-docker push your-username/dcgm-pytorch-cuda:12.8
