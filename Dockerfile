@@ -1,4 +1,3 @@
-Mojtaba Roshani, [10/8/2025 2:00 AM]
 # Base image
 FROM nvidia/dcgm:4.1.1-1-ubuntu22.04
 
