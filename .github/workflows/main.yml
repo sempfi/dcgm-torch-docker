@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Clean up disk space
+      run: |
+        sudo rm -rf /opt
+        sudo apt-get clean
+        docker system prune -af
+
     - name: Checkout
       uses: actions/checkout@v4
 
