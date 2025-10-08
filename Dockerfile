@@ -27,13 +27,28 @@ RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-nvcc-12-8_12.8.61-1_amd64.deb && \
+    dpkg -i cuda-nvcc-12-8_12.8.61-1_amd64.deb && \
+    rm cuda-nvcc-12-8_12.8.61-1_amd64.deb && \
+    apt-get update && \
+    apt-get install -y cuda-nvcc-12-8_12.8.61-1_amd64 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+
+ARG NSYS_URL=https://developer.nvidia.com/downloads/assets/tools/secure/nsight-systems/2025_2/NsightSystems-linux-cli-public-2025.2.1.130-3569061.deb
+ARG NSYS_PKG=NsightSystems-linux-cli-public-2025.2.1.130-3569061.deb
+RUN apt-get update && apt install -y wget libglib2.0-0
+RUN wget ${NSYS_URL}${NSYS_PKG} && dpkg -i $NSYS_PKG && rm $NSYS_PKG
+
+
 # Set CUDA environment variables
 ENV PATH="/usr/local/cuda-12.8/bin:${PATH}"
 ENV LD_LIBRARY_PATH="/usr/local/cuda-12.8/lib64:${LD_LIBRARY_PATH}"
 ENV CUDA_HOME="/usr/local/cuda-12.8"
 
 # Install PyTorch with CUDA 12.8 support (using nightly/preview build)
-RUN pip install --no-cache-dir --pre torch==2.8.0.dev20250324+cu128 torchvision==0.22.0.dev20250325+cu128 torchaudio==2.6.0.dev20250325+cu128 --index-url https://download.pytorch.org/whl/nightly/cu128
+RUN pip install --no-cache-dir --pre torch==2.8.0+cu128 --index-url https://download.pytorch.org/whl/cu128
 
 # Verify installations
 RUN python --version && \
