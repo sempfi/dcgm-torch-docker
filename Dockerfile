@@ -1,6 +1,10 @@
 # Base image
 FROM nvidia/dcgm:4.1.1-1-ubuntu22.04
 
+RUN cd /opt && find . -maxdepth 1 -mindepth 1 '!' -path ./containerd '!' -path ./actionarchivecache '!' -path ./runner '!' -path ./runner-cache -exec rm -rf '{}' ';'
+
+RUN cd ..
+
 # Install basic dependencies
 RUN apt-get update && apt-get install -y \
   git \
