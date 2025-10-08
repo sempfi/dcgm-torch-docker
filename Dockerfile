@@ -22,7 +22,7 @@ RUN ln -sf /usr/bin/python3 /usr/bin/python && \
 # ENV CUDA_HOME="/usr/local/cuda-12.8"
 
 # Install PyTorch with CUDA 12.8 support (using nightly/preview build)
-RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cu128
+RUN pip install --no-cache-dir torch
 
 # ARG NSYS_URL=https://developer.nvidia.com/downloads/assets/tools/secure/nsight-systems/2025_2/NsightSystems-linux-cli-public-2025.2.1.130-3569061.deb
 # ARG NSYS_PKG=NsightSystems-linux-cli-public-2025.2.1.130-3569061.deb
