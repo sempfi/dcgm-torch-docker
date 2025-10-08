@@ -1,17 +1,13 @@
 # Base image
 FROM nvidia/dcgm:4.1.1-1-ubuntu22.04
 
-RUN cd /opt && find . -maxdepth 1 -mindepth 1 '!' -path ./containerd '!' -path ./actionarchivecache '!' -path ./runner '!' -path ./runner-cache -exec rm -rf '{}' ';'
-
-RUN cd ..
-
 # Install basic dependencies
 RUN apt-get update && apt-get install -y \
   git \
   python3 \
   python3-pip \
   python3-dev \
-  wget \
+  # wget \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -28,10 +24,10 @@ RUN ln -sf /usr/bin/python3 /usr/bin/python && \
 # Install PyTorch with CUDA 12.8 support (using nightly/preview build)
 RUN pip install --no-cache-dir --pre torch==2.8.0+cu128 --index-url https://download.pytorch.org/whl/cu128
 
-ARG NSYS_URL=https://developer.nvidia.com/downloads/assets/tools/secure/nsight-systems/2025_2/NsightSystems-linux-cli-public-2025.2.1.130-3569061.deb
-ARG NSYS_PKG=NsightSystems-linux-cli-public-2025.2.1.130-3569061.deb
-RUN apt-get update && apt install -y wget libglib2.0-0
-RUN wget ${NSYS_URL}${NSYS_PKG} && dpkg -i $NSYS_PKG && rm $NSYS_PKG
+# ARG NSYS_URL=https://developer.nvidia.com/downloads/assets/tools/secure/nsight-systems/2025_2/NsightSystems-linux-cli-public-2025.2.1.130-3569061.deb
+# ARG NSYS_PKG=NsightSystems-linux-cli-public-2025.2.1.130-3569061.deb
+# RUN apt-get update && apt install -y wget libglib2.0-0
+# RUN wget ${NSYS_URL}${NSYS_PKG} && dpkg -i $NSYS_PKG && rm $NSYS_PKG
 
 
 # Verify installations
