@@ -15,9 +15,12 @@ RUN apt-get update && apt-get install -y \
 
 # Create symbolic links for python
 RUN ln -sf /usr/bin/python3 /usr/bin/python && \
-    ln -sf /usr/bin/pip3 /usr/bin/pip
+    ln -sf /usr/bin/pip3 /usr/bin/pip && \
+    ln -sfn /usr/local/cuda-12.1 /usr/local/cuda
 
-RUN pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+RUN pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+RUN pip install pip install "numpy<2"
 
 RUN apt-get install cuda-toolkit-12-8
 
